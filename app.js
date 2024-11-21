@@ -36,7 +36,7 @@ app.post("/correct", async (req, res) => {
         const result = await model.generateContent(prompt);
         console.log(prompt);
         console.log(result.response.text());
-        if (result.response || !result.response.text()) {
+        if (result.success) {
             res.render("index", {
               corrected: "Error:  API response is unsuccessful.",
               originalText: text,
