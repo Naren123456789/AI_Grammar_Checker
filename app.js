@@ -34,8 +34,8 @@ app.post("/correct", async (req, res) => {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
         const prompt = `Correct the following text grammatically: ${text}`;
         const result = await model.generateContent(prompt);
-        //console.log(prompt);
-        //console.log(result.response.text());
+        console.log(prompt);
+        console.log(result.response.text());
         if (result.response.ok) {
             res.render("index", {
               corrected: "Error:  API response is unsuccessful.",
@@ -44,7 +44,7 @@ app.post("/correct", async (req, res) => {
             return;
         }
         const correctedText = result.response.text();
-        //console.log(correctedText);
+        console.log(correctedText);
         res.render("index", {
             corrected: correctedText,
             originalText: text,
