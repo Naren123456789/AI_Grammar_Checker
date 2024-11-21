@@ -6,8 +6,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const app = express();
 const port = process.env.PORT || 5000;
-//const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const genAI = new GoogleGenerativeAI("AIzaSyCBxFpDI3sfqPKguQ9NkVuEyFQwiygDU3I");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+//const genAI = new GoogleGenerativeAI("AIzaSyCBxFpDI3sfqPKguQ9NkVuEyFQwiygDU3I");
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('public', path.join(__dirname, 'public'));
