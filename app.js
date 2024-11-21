@@ -51,7 +51,7 @@ app.post("/correct", async (req, res) => {
         });
     } catch (error) {
         res.render("index", {
-            corrected: "Error2. Please try again.",
+            corrected: `Error2. Please try again. ${error}`,
             originalText: text,
         });
     }
