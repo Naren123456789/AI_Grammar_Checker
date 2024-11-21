@@ -7,6 +7,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
 const port = process.env.PORT || 5000;
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
@@ -19,7 +20,8 @@ app.get("/", (req, res) => {
         originalText: "", 
     });
 });
-//Main route
+
+//correct route
 app.post("/correct", async (req, res) => {
     const text = req.body.text.trim();
     if (!text) {
@@ -30,8 +32,7 @@ app.post("/correct", async (req, res) => {
         return;
     }
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-        const prompt = `Correct the following text grammatically: ${text}`;
+        const prompt = `Correct the following text grammatically: ${text}.`;
         const result = await model.generateContent(prompt);
         console.log(prompt);
         console.log(result.response.text());
@@ -56,6 +57,41 @@ app.post("/correct", async (req, res) => {
     }
 });
 
+//meaning route
+app.post("/meaning", async (req, res) => {
+    const text = req.body.text.trim();
+    if (!text) {
+        res.render("index", {
+            corrected: "Please enter some text to correct",
+            originalText: text, 
+        });
+        return;
+    }
+    try {
+        const prompt = `Interpret the meaning of the word or the sentence: ${text}.`;
+        const result = await model.generateContent(prompt);
+        console.log(prompt);
+        console.log(result.response.text());
+        if (result.success) {
+            res.render("index", {
+              corrected: "Error:  API response is unsuccessful.",
+              originalText: text,
+            });
+            return;
+        }
+        const correctedText = result.response.text();
+        console.log(correctedText);
+        res.render("index", {
+            corrected: correctedText,
+            originalText: text,
+        });
+    } catch (error) {
+        res.render("index", {
+            corrected: `Error2. Please try again. ${error}`,
+            originalText: text,
+        });
+    }
+});
 
 //start the server
 app.listen(port, () => {

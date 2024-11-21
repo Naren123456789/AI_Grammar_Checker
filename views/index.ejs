@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI-Powered Grammar Correction</title>
+    <title>AI-Powered Text Analyzer & Grammar Corrector</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -18,15 +18,18 @@
         font-size: 3rem;
         margin-bottom: 1rem;
       }
+      .button-group button{
+        flex: 1;
+      }
     </style>
   </head>
   <body class="bg-light">
     <div class="container mt-5">
       <div class="text-center mb-5">
         <i class="fas fa-robot icon-large text-primary"></i>
-        <h1 class="display-4">AI Grammar Genius</h1>
+        <h1 class="display-4">AI Text Genius</h1>
         <p class="lead">
-          Harness the power of artificial intelligence to perfect your writing
+          Harness the power of artificial intelligence to perfect your writing and understanding
         </p>
       </div>
 
@@ -38,9 +41,9 @@
                 <i class="fas fa-keyboard me-2"></i>Input Your Text
               </h2>
               <p class="card-text">
-                Enter your text below and let our AI analyze and improve it.
+                Enter your text below and let our AI analyze, improve, correct and interpret it.
               </p>
-              <form action="/correct" method="POST">
+              <form id="textForm">
                 <div class="mb-3">
                   <textarea
                     class="form-control"
@@ -53,9 +56,24 @@
                     <%= originalText || '' %></textarea
                   >
                 </div>
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-magic me-2"></i>Enhance with AI
-                </button>
+                <!-- Buttons Side by Side -->
+                 <div class="d-flex button-group">
+                  <button
+                    type="submit" 
+                    formaction="/correct"
+                    formmethod="POST"
+                    class="btn btn-primary">
+                    <i class="fas fa-wand-magic-sparkles" ></i> Enhance
+                  </button>
+                  <span>&nbsp;</span>
+                  <button
+                    type="submit" 
+                    formaction="/meaning"
+                    formmethod="POST"
+                    class="btn btn-success" >
+                    <i class="fa-solid fa-book-open"></i> Interpret
+                  </button>
+                 </div>
               </form>
             </div>
           </div>
@@ -66,14 +84,14 @@
             <div class="card-body">
               <h2 class="card-title">
                 <i class="fas fa-check-circle me-2"></i>
-                AI-Corrected Output
+                AI-Generated Output
               </h2>
               <p class="card-text">
-                View your grammatically improved text below.
+                View your response below.
               </p>
               <!-- Results here -->
               <% if(corrected) { %> <%= corrected %> <% } else { %>
-              <p>Please enter some text to correct.</p>
+              <p>Please enter some text.</p>
               <% } %>
             </div>
           </div>
@@ -85,13 +103,13 @@
           <i class="fas fa-bolt icon-large text-warning"></i>
           <h3>Lightning Fast</h3>
           <p>
-            Get instant grammar corrections powered by advanced AI algorithms.
+            Get instant grammar corrections and text interpretations powered by advanced AI algorithms.
           </p>
         </div>
         <div class="col-md-4 text-center mb-3">
           <i class="fas fa-brain icon-large text-info"></i>
           <h3>Intelligent Analysis</h3>
-          <p>Our AI understands context and nuance for accurate corrections.</p>
+          <p>Our AI understands context and nuance for accurate corrections and interpretations.</p>
         </div>
         <div class="col-md-4 text-center mb-3">
           <i class="fas fa-sync icon-large text-success"></i>
